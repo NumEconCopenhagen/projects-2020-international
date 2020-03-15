@@ -1,15 +1,21 @@
 # Import all neccesary packages to solve assignment 
 import numpy as np # for creating arrays and essenatial math tools
 from scipy import optimize # for finding optimal consumption and labor 
+%matplotlib inline
+import matplotlib.pyplot as plt
 %load_ext autoreload
 %autoreload 2
-%matplotlib inline
-import matplotlib.pyplot as plt # for plotting optimal labor and consumption
 
-# Question 1: Create solver to find optimal consumption and labor that mazimizes utility
+# set all of the parameters of the labor supply problem 
+m = 1
+v = 10
+e = 0.3
+t0 = 0.4 
+t1 = 0.1 
+k = 0.4
 
 # a. Create utility function that will be optimized to find L* and C*
-def u(L, c, v=10, e=0.3):
+def u(L, c, v, e):
     ''' calculates utility based upon combinations of labor supply and consumption.
     
     Arguments:
@@ -24,7 +30,7 @@ def u(L, c, v=10, e=0.3):
     return np.log(c) - v*((L**(1+(1/e)))/(1 + (1/e)))
 
 # b. Create best choice function used in minimization problem
-def best_choices(L, w, m=1, v=10, e=0.3, t0=0.4, t1=0.1, k=0.4):
+def best_choices(L, w, m, v, e, t0, t1, k):
     ''' Function used to calculate negative utility
     
     Arguments:
@@ -46,7 +52,7 @@ def best_choices(L, w, m=1, v=10, e=0.3, t0=0.4, t1=0.1, k=0.4):
 
 # c. minimize negative utility function
 
-def optimization(w, m, v=10, e=0.3, t0=0.4, t1=0.1, k=0.4):
+def optimization(w, m, v, e, t0, t1, k):
     ''' Function used to calculate optimal labor and consumption at a given wage
     
     Arguments:
@@ -68,8 +74,6 @@ def optimization(w, m, v=10, e=0.3, t0=0.4, t1=0.1, k=0.4):
     L = sol.x
     c = m + w*L - (t0*w*L + t1*max(w*L - k, 0))
     return [L, c]
-
-# Question 2: Plotting optimal consumption and labor supply relative to a range of wages
 
 # a. create empty lists for Labor and consumption 
 L_best = [] # List of optimal values of labor for given wages
@@ -107,8 +111,6 @@ ax_right.set_xlabel('$Wage Rate$')
 ax_right.set_ylabel('$Labor Supply$')
 ax_right.grid(True)    
 
-# Question 3: Calculate total tax revenue of a population 10,000 and uniform wage distribution
-
 # a. Calculate total tax revenue based upon a given population
 def totaltaxrevenue(w, v=10, e=0.3, t0=0.4, t1=0.1, k=0.4):
     ''' Calculates the total tax revenue recieved by a given population size and wage
@@ -134,6 +136,32 @@ def totaltaxrevenue(w, v=10, e=0.3, t0=0.4, t1=0.1, k=0.4):
 # b. print total tax revenue collected 
 print("Total tax revenue collected" + " " + str(totaltaxrevenue(w))) 
 
-# Question 4: What would the total tax revenue collected be if e = 0.1?
-
 print("Total tax revenue collected" + " " + str(totaltaxrevenue(w, e=0.1)))
+
+# a. Create an objective function to maxamize taxes
+def best_tax_levels(tax, w, v, e, m):
+    ''' Create function that outputs negative total tax revenue that will be used to find optimal values of T0, T1, and K
+    
+    Arguments:
+    tax(float) = list of various tax paramaters
+    w(float) = wage rate 
+    
+    Results:
+    Negative total tax revenue
+    '''
+    tax_low = tax[0]
+    tax_high = tax[1]
+    tax_cutoff = tax[2]
+    
+    return -totaltaxrevenue(w, v, e, tax_low, tax_high, tax_cutoff)
+
+initial_guess = [.1, .1, .1] # Initial guess for optimizing tax revenue
+sol = optimize.minimize(best_tax_levels, initial_guess, method='Nelder-Mead', bounds args=(w, e, v, m))
+
+tax1 = sol.x[0] # Optimal standard labor income tax
+tax2 = sol.x[1] # Optimal top bracket labor income tax
+tax3 = sol.x[3] # optimal cutoff
+   
+print("Standard labor income tax " + str(tax1))
+print("Top bracket labor income tax " + str(tax2))
+print("Cutoff " + str(tax3))
