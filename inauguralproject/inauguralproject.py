@@ -156,7 +156,7 @@ def best_tax_levels(tax, w, v, e, m):
     return -totaltaxrevenue(w, v, e, tax_low, tax_high, tax_cutoff)
 
 initial_guess = [.1, .1, .1] # Initial guess for optimizing tax revenue
-sol = optimize.minimize(best_tax_levels, initial_guess, method='Nelder-Mead', bounds args=(w, e, v, m))
+sol = optimize.minimize(best_tax_levels, initial_guess, method='Nelder-Mead', args=(w, e, v, m))
 
 tax1 = sol.x[0] # Optimal standard labor income tax
 tax2 = sol.x[1] # Optimal top bracket labor income tax
