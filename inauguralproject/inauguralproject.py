@@ -160,7 +160,7 @@ sol = optimize.minimize(best_tax_levels, initial_guess, method='Nelder-Mead', ar
 
 tax1 = sol.x[0] # Optimal standard labor income tax
 tax2 = sol.x[1] # Optimal top bracket labor income tax
-tax3 = sol.x[3] # optimal cutoff
+tax3 = sol.x[2] # optimal cutoff
    
 print("Standard labor income tax " + str(tax1))
 print("Top bracket labor income tax " + str(tax2))
