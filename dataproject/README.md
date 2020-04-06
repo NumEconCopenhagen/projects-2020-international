@@ -4,8 +4,9 @@ Our project is titled Data Analysis: Danish Drug Price analysis on Abilify and f
 
 The **results** of the project can be seen from running [dataproject.ipynb](dataproject.ipynb).
 
-This **loades two datasets**:
+We conclude:
+Taking a quick look at the data, prices per dosage appear to have way higher volatility than expected as they tend to increase and decrease rather rapidly, a trend that most firms seem to follow. Abilify had an average price of around 70 DKK per daily dosage and it presents a left skewed distribution which indicates that it was most often sold for even less, leaving some extremely higher values acting as outliers.
+Results are far from expected since its prices’ high variance is not what a traditional economic theory would predict. As that good could be characterized as both essential and competitive it would be expected to present limited flexibility.  Further research would be interesting to be done both in terms of its prices’ correlation with the general medicine market prices as well as with its’ direct substitutes and consumers’ demand.
 
-1. lmpriser_eSundhed_200323.xlsx
 
 **Dependencies:** standard Anaconda Python 3 installation, the project requires the following installations:
