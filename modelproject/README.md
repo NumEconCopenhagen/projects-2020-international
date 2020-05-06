@@ -4,6 +4,6 @@ Our project is titled Overlapping generations model with a Pay-as-you-go system 
 
 The key assumption made is the population turnover: people only live for 2 periods, they are young and they work at the first period of their lives, they are old and are considered 'retirees' in the second period of their lives and then they die. In that setting, the economy and growth have still infinite horizon but individuals do not. Each period a new generation is born and an old one dies. We assume that n is the growth of the population..
 
-The **results** of the project can be seen from running [FinalProject.ipynb].
+The **results** of the project can be seen from running [modelproject\FinalProject.ipynb].
 
 **Dependencies:** Apart from a standard Anaconda Python 3 installation, the project requires no further packages.
